@@ -37,6 +37,9 @@ design-lexicon/
 │   ├── crawl.js           # 크롤러 (fetch+cheerio, playwright 폴백)
 │   ├── clean.js           # 노이즈 제거
 │   └── analyze.js         # garu-ko 형태소 분석 + 통계
+├── test/
+│   ├── run-pipeline.js    # 네트워크 없는 파이프라인 셀프 테스트
+│   └── sites.fixture.json
 └── README.md
 ```
 
@@ -116,10 +119,13 @@ design-lexicon/
 - playwright 브라우저 바이너리 설치 가능 여부 확인
 - 검증 실행: `npm run verify`
 
-**Phase 1 — 파일럿 (사이트 2~3개)**
+**Phase 1 — 파일럿 (사이트 2~3개)** ← 진행 중 🚧
 
-- sites.json에 2~3개만 넣고 전체 파이프라인 1회 실행
-- 노이즈가 어떤 식으로 섞이는지 결과를 보고 정제 규칙 보정
+- crawl.js / clean.js / analyze.js 구현 완료, 로컬 fixture로 end-to-end 검증
+  (`npm run test:pipeline` — 외부 웹 없이 통과)
+- sites.json 에 파일럿 2개 등록: sulki-min, shin-shin
+- **남은 것: 실제 두 사이트 크롤 실행 후 실제 노이즈로 정제 규칙 보정.**
+  단, 외부 웹 egress가 열린 환경(로컬 CLI 등)에서 실행해야 함 (README '실행 환경 주의').
 
 **Phase 2 — 본 수집**
 

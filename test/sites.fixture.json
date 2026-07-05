@@ -1,0 +1,4 @@
+[
+  { "slug": "studio-a", "name": "스튜디오 A (fixture, 정적)", "url": "http://127.0.0.1:8901", "type": "studio", "note": "테스트용 정적 사이트" },
+  { "slug": "studio-b", "name": "스튜디오 B (fixture, SPA)", "url": "http://127.0.0.1:8902", "type": "studio", "note": "테스트용 SPA — playwright 폴백 경로" }
+]

@@ -1,10 +1,12 @@
 node_modules/
 
-# 크롤링 원본/중간 산출물은 용량이 크고 재생성 가능 → 커밋 제외.
-# 스키마 확인용 예시만 data/raw/.gitkeep 등으로 남긴다.
-data/raw/*.json
-data/cleaned/*.json
-data/results/*.json
+# 크롤링 원본/중간/결과 산출물은 재생성 가능 → 커밋 제외 (.gitkeep 만 추적).
+data/raw/*
+!data/raw/.gitkeep
+data/cleaned/*
+!data/cleaned/.gitkeep
+data/results/*
+!data/results/.gitkeep
 
 # OS / 에디터
 .DS_Store

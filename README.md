@@ -43,17 +43,39 @@ npm run verify
 ✅ Phase 0 환경 검증 통과 — 모든 의존성 정상.
 ```
 
-## 파이프라인 (Phase 1~3, 구현 예정)
+## 파이프라인
 
 ```bash
 npm run crawl     # data/sites.json → data/raw/{slug}.json
 npm run clean     # data/raw → data/cleaned (원본 불변)
 npm run analyze   # data/cleaned → data/results (빈도표 · TF-IDF · 리포트)
+
+# 특정 사이트만: npm run crawl -- sulki-min
 ```
 
-각 스크립트의 상세 요구사항은 파일 상단 주석과 `CLAUDE.md` §5~§7 에 있다.
-현재 `crawl.js` / `clean.js` / `analyze.js` 는 스펙만 담은 스켈레톤이며,
-Phase 1(파일럿) 부터 채운다.
+세 스크립트 모두 구현·검증 완료(파일 상단 주석과 `CLAUDE.md` §5~§7 참고).
+`crawl.js` 는 정적(cheerio)으로 먼저 훑고, 본문 있는 페이지가 하나도 없으면
+SPA로 보고 사이트 전체를 playwright로 재시도한다.
+
+### 파이프라인 셀프 테스트 (네트워크 불필요)
+
+`127.0.0.1` 에 가짜 포트폴리오(정적 1 + SPA 1)를 띄워 crawl→clean→analyze 를
+실제로 돌리고 결과를 검증한다. 외부 웹이 막힌 환경에서도 코드 정확성을 확인할 수 있다.
+
+```bash
+npm run test:pipeline
+```
+
+### ⚠️ 실행 환경 주의 — 외부 웹 접근
+
+실제 크롤링은 **대상 사이트에 HTTPS로 나갈 수 있는 환경**에서 실행해야 한다.
+
+- **Claude Code 웹 세션 등 egress가 막힌 환경**에서는 외부 사이트(예: sulki-min.com)에
+  접근할 수 없다(npm·GitHub 같은 허용 목록만 통과). 이 경우 `npm run crawl` 은 각
+  사이트를 실패로 기록하고 넘어간다. → **로컬 CLI 또는 네트워크가 열린 환경에서 실행.**
+- **Node 내장 `fetch` 는 프록시 환경변수를 기본적으로 읽지 않는다.** 프록시 뒤에서
+  돌린다면 `NODE_USE_ENV_PROXY=1` 을 주거나(Node ≥ 22.21) 프록시 없는 환경에서 실행한다.
+- 코드 자체는 환경 독립적이다 — 위 셀프 테스트로 로직은 이미 검증돼 있다.
 
 ## 디렉터리
 
@@ -65,7 +87,10 @@ data/
   results/       분석 결과 (커밋 제외)
 scripts/
   verify-env.js  환경 검증
-  crawl.js       크롤러 (스켈레톤)
-  clean.js       정제 (스켈레톤)
-  analyze.js     분석 (스켈레톤)
+  crawl.js       크롤러 (fetch+cheerio, playwright 폴백)
+  clean.js       정제 (반복 블록/노이즈 제거, lang 판정)
+  analyze.js     분석 (garu-ko 형태소 · 빈도 · TF-IDF · 리포트)
+test/
+  run-pipeline.js      네트워크 없는 파이프라인 셀프 테스트
+  sites.fixture.json   테스트용 사이트 목록
 ```

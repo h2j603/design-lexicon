@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "slug": "sulki-min",
+    "name": "슬기와 민 (Sulki & Min)",
+    "url": "https://www.sulki-min.com",
+    "type": "studio",
+    "note": "한국 그래픽 디자인 듀오. 전시·출판 중심, 파일럿 대상"
+  },
+  {
+    "slug": "shin-shin",
+    "name": "신신 (Shin Shin)",
+    "url": "https://www.shin-shin.kr",
+    "type": "studio",
+    "note": "그래픽 디자인 스튜디오. 파일럿 대상"
+  }
+]

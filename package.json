@@ -11,7 +11,8 @@
     "verify": "node scripts/verify-env.js",
     "crawl": "node scripts/crawl.js",
     "clean": "node scripts/clean.js",
-    "analyze": "node scripts/analyze.js"
+    "analyze": "node scripts/analyze.js",
+    "test:pipeline": "node test/run-pipeline.js"
   },
   "dependencies": {
     "cheerio": "^1.2.0",
