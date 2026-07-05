@@ -1,0 +1,12 @@
+node_modules/
+
+# 크롤링 원본/중간 산출물은 용량이 크고 재생성 가능 → 커밋 제외.
+# 스키마 확인용 예시만 data/raw/.gitkeep 등으로 남긴다.
+data/raw/*.json
+data/cleaned/*.json
+data/results/*.json
+
+# OS / 에디터
+.DS_Store
+*.log
+npm-debug.log*

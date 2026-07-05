@@ -1,0 +1,21 @@
+{
+  "name": "design-lexicon",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "한국 그래픽 디자이너 포트폴리오의 작업 설명 어휘 리서치 — 크롤링 + 형태소 분석",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "verify": "node scripts/verify-env.js",
+    "crawl": "node scripts/crawl.js",
+    "clean": "node scripts/clean.js",
+    "analyze": "node scripts/analyze.js"
+  },
+  "dependencies": {
+    "cheerio": "^1.2.0",
+    "garu-ko": "^0.9.8",
+    "playwright": "1.56.1"
+  }
+}
